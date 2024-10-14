@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(161, 215, 248);
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 10px;
+
+}
+
+.head {
+    margin-top: 10px;
+}
+
+.msg {
+    overflow-y: scroll;
+    height: 60%;
+    position: relative;
+    display: flex;
+    align-items: start;
+    /* bottom: 0; */
+}
+
+.chatting {
+    width: 70vw;
+    height: 60vh;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 10px;
+    position: relative;
+    /* overflow-y: scroll; */
+}
+
+#messages {
+    min-height: 100%;
+    /* height: 1000px; */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    justify-content: flex-end;
+    bottom: 0px !important;
+}
+
+li {
+    list-style: none;
+    width: max-content;
+}
+
+.notify {
+    font-weight: bold;
+    font-size: 12px;
+    color: brown;
+    position: relative !important;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.sendMsg {
+    color: #fff;
+    display: inline-block;
+    background-color: rgb(0, 162, 255);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.inpMsg {
+    color: black;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: gainsboro;
+    padding: 5px 10px;
+}
+
+form {
+    /* border: 0.5px solid black; */
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+
+    /* border: none; */
+
+
+}
+
+#input {
+    width: 75%;
+    min-height: 35px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    padding: 2px 6px 2px 6px;
+}
+
+input[type=submit] {
+    width: 20%;
+    height: 35px;
+
+}
+
+.chatting {
+    display: none;
+}
+
+.enter {
+    background-color: ghostwhite;
+    border-radius: 10px;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    overflow-y: scroll;
+}
+
+.logDiv {
+    width: 100%;
+    padding: 0 10px;
+    flex-wrap: nowrap;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    input {
+        width: 300px;
+        outline: none;
+        height: 35px;
+        border-radius: 4px;
+        border: 0.1px solid gray;
+        padding: 4px 8px;
+    }
+
+    button {
+        width: 100px;
+        background-color: rgb(0, 183, 255);
+        color: whitesmoke;
+        padding: 8px 15px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: 0.2s;
+    }
+}
+
+#logBtn:hover {
+    scale: 1.05;
+}
+
+#logBtn:active {
+
+    background-color: rgb(28, 42, 58)
+}
+
+.settings {
+    display: flex;
+    height: 30px;
+}
+
+#nameEdit {
+    flex: 1;
+    background-color: white;
+    /* display: flex; */
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    /* gap: 5px; */
+    padding: 0 6px 0 6px;
+}
+
+#exitBtn {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+    background-color: rgb(238, 34, 34);
+    border: none;
+    outline: none;
+    border-radius: 0 4px 4px 0;
+}
+@media(max-width: 640px){
+body{
+    height: 100dvh;
+}
+    .enter{
+        margin-top: 150px;
+        width: 90vw;
+        height: max-content;
+    }
+    #username{
+        width: 90%;
+    }
+    .chatting{
+        width: 95vw;
+        height: 80vh;
+    }
+    .settings{
+    height: 8%;
+    }
+    #form{
+        height: 12%;
+    }
+    .msg{
+        height: 80%;
+    }
+}

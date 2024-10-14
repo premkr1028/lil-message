@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <h1 class="head">Lil-Chat</h1>
+    <div class="enter">
+        <h1>Welcome</h1>
+        <p>Choose a username for joining</p>
+        <div class="logDiv">
+            <input id="username" type="text" placeholder="Choose a username" required />
+            <button id="logBtn">Join</button>
+        </div>
+
+    </div>
+    <div class="chatting">
+        <div class="settings">
+            
+            <div id="nameEdit">prem</div>
+            <button id="exitBtn">Exit!<i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+        <div class="msg">
+
+            <div id='messages'>
+                <!-- <p class="notify">Joined the chat</p> -->
+            </div>
+        </div>
+        <!-- <div class="sends"></div> -->
+        <form id="form">
+            <input type="text" id="input" placeholder="Start chatting">
+            <input type="submit" value="send">
+        </form>
+    </div>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io()
+        let send = false
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+        const usernameInput = document.getElementById("username")
+        const joinBtn = document.getElementById("logBtn")
+        const chatArea = document.querySelector(".chatting")
+        const joinArea = document.querySelector(".enter")
+        const exitBtn = document.getElementById("exitBtn")
+        const nameDiv = document.querySelector("#nameEdit")
+        // const notify = document.querySelector(".notify")
+        let user;
+
+        function rendering() {
+
+            messages.innerHTML = ""
+            if (user) {
+                chatArea.style.display = "flex"
+                joinArea.style.display = "none"
+            } else {
+                chatArea.style.display = "none"
+                joinArea.style.display = "flex"
+            }
+            socket.emit("newConnection", user)
+
+        }
+        rendering()
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                const item = document.createElement('li');
+                item.classList.add("sendMsg")
+                item.textContent = input.value;
+                messages.appendChild(item)
+                input.value = '';
+                send = true
+                var bottomElement = messages.
+                    lastElementChild;
+                bottomElement
+                    .scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+            // return
+        });
+        socket.on("newConnection", (userName) => {
+            if (userName == null) { return }
+            let noty = document.createElement("p")
+            noty.classList.add("notify")
+            noty.textContent = `${userName} joined the chat!`
+            messages.appendChild(noty)
+            let bottomElement = messages.lastElementChild;
+            bottomElement.scrollIntoView({
+                behavior:"smooth",block:"end"
+            })
+        })
+        if (socket) {
+            socket.on('chat message', (msg) => {
+                if (send == true) {
+                    send = false
+                    return
+                }
+                const item = document.createElement('li');
+                item.classList.add("inpMsg")
+                item.textContent = msg;
+                messages.appendChild(item);
+                var bottomElement = messages.
+                    lastElementChild;
+                bottomElement
+                    .scrollIntoView({ behavior: 'smooth', block: 'end' });
+            });
+        }
+        send = false
+
+        joinBtn.addEventListener("click", () => {
+
+            // socket = io()
+            if (!usernameInput.value) {
+                alert("plz choose an username")
+                return
+            }
+            user = usernameInput.value;
+            chatArea.style.display = "flex"
+            joinArea.style.display = "none"
+            rendering()
+            nameDiv.innerHTML = user
+            usernameInput.value = ""
+        })
+        exitBtn.addEventListener("click", () => {
+            user = null
+            rendering()
+            
+        })
+    </script>
+</body>
+
+</html>
